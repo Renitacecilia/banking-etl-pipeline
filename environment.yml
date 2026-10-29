@@ -1,0 +1,9 @@
+name: banking-etl
+channels:
+  - conda-forge
+dependencies:
+  - python=3.13
+  - pandas>=3.0
+  - numpy>=2.0
+  - requests>=2.31
+  - pytest>=8.0

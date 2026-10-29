@@ -1,0 +1,20 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install -r requirements.txt
+      - name: Unit + integration tests
+        run: pytest etl_pipeline.py -v
+      - name: Smoke-run the full pipeline
+        run: |
+          python etl_pipeline.py generate --start 2026-09-01 --days 7
+          python etl_pipeline.py run --offline
+          python etl_pipeline.py report
