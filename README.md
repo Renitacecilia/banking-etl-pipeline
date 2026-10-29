@@ -50,35 +50,6 @@ Real upstream feeds are never clean. Core banking systems, card processors and C
 | Customer | `customer_id_present`, `customer_id_format`, `updated_at_valid` | error → quarantine |
 | Customer | `email_valid`, `dob_valid_adult`, `segment_known` | warn |
 
-## Quick start
-
-```bash
-# 1. Create the environment
-conda env create -f environment.yml
-conda activate banking-etl
-
-# 2. Generate 14 days of messy source data (synthetic, deterministic)
-python etl_pipeline.py generate --start 2026-09-01 --days 14
-
-# 3. Run the pipeline
-python etl_pipeline.py run
-
-# 4. Run it again - nothing new, nothing reloaded
-python etl_pipeline.py run
-
-# 5. A week of new files arrives - only the new files are processed
-python etl_pipeline.py generate --start 2026-09-01 --days 21
-python etl_pipeline.py run
-
-# 6. Look at the results
-python etl_pipeline.py report
-
-# 7. Run the tests
-pytest etl_pipeline.py -v
-```
-
-Use `python etl_pipeline.py reset` to delete the warehouse, quarantine and reports and start again (raw files are kept).
-
 ## Example results
 
 From the run sequence above (14 days, then 7 more):
